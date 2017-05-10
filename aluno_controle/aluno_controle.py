@@ -56,6 +56,12 @@ vel_x = 0.0
 vel_y = 0.0
 
 
+
+
+
+
+
+
 def compor_cena(c):
     global tempo_anterior, pos_x, pos_y
 
