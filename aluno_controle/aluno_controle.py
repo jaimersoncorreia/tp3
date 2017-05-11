@@ -19,11 +19,11 @@ from OpenGL.GLUT import *
 
 
 import time
-
+'''
 def compor_cena_cronometro(c):
     tempo = glutGet(GLUT_ELAPSED_TIME) / 1000
     angulo = tempo * 72
-
+'''
     # glRotate(tempo * 72, 0, 0, 1)
 
     # glRotate(tempo * 72, 0, 0, 1)  # 2a transformacao
@@ -34,7 +34,7 @@ def compor_cena_cronometro(c):
 
     # escala = 0.2 * cos(360 * tempo *pi/180) + 1
     # glScale(escala, escala, escala)
-
+'''
     fracionario = (2*tempo) - int(2*tempo)
 
     y = -8 * fracionario**2 + 8 * fracionario - 1
@@ -47,13 +47,15 @@ def compor_cena_cronometro(c):
     glVertex(0.5, 0.5, 0)
     glVertex(-0.5, 0.5, 0)
     glEnd()
-
+'''
 
 tempo_anterior = 0.0
 pos_x = 0.0
 pos_y = 0.0
+pos_t = 0.0
 vel_x = 0.0
 vel_y = 0.0
+vel_t = 0.0
 
 
 
@@ -63,16 +65,19 @@ vel_y = 0.0
 
 
 def compor_cena(c):
-    global tempo_anterior, pos_x, pos_y
+    global tempo_anterior, pos_x, pos_y, pos_t
 
     tempo_agora = glutGet(GLUT_ELAPSED_TIME) / 1000
+    print(tempo_agora)
     dt = tempo_agora - tempo_anterior
     tempo_anterior = tempo_agora
 
     pos_x += vel_x * dt
     pos_y += vel_y * dt
+    pos_t += vel_t * dt
 
     glTranslate(pos_x, pos_y, 0)
+    glRotate(pos_t*15, 0, 0, 1)
 
     glBegin(GL_QUADS)
     glVertex(-0.5, -0.5, 0)
@@ -83,7 +88,7 @@ def compor_cena(c):
 
 
 def processar_teclado(key):
-    global vel_x, vel_y
+    global vel_x, vel_y, vel_t
 
     if key == b'a':
         vel_x -= 1
@@ -93,7 +98,14 @@ def processar_teclado(key):
         vel_y += 1
     elif key == b's':
         vel_y -= 1
-
+    elif key == b'z':
+        vel_t -= 1
+    elif key == b'c':
+        vel_t += 1
+    elif key == b' ':
+        vel_t = 0
+        vel_x = 0
+        vel_y = 0
 
 
 
